@@ -1,0 +1,33 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+# Entornos virtuales
+venv/
+.venv/
+env/
+.env
+
+# --- Datos (ETL) ---
+data/processed/*
+!data/processed/.gitkeep
+
+# --- Jupyter / Notebooks ---
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# --- Logs y Bases de Datos Locales ---
+*.log
+*.sql.gz
+
+# --- Images / diagrams
+*.png
+*.svg
+
+# --- SO (Linux/Mac/Windows) ---
+.DS_Store
+Thumbs.db
+
+GEMINI.md
