@@ -9,6 +9,12 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def load_sql_queries(file_path: Path) -> dict:
     """
     Parses a SQL file and returns a dictionary of queries mapped by their comment headers.
+    
+    Args:
+        file_path (Path): The pathlib.Path object pointing to the SQL file containing the queries.
+        
+    Returns:
+        dict: A dictionary where keys are the comment headers (without '-- ') and values are the SQL query strings.
     """
     queries = {}
     current_name = None
@@ -33,6 +39,14 @@ def load_sql_queries(file_path: Path) -> dict:
 def init_database(db_uri: str, db_name: str, create_sql_path: Path):
     """
     Checks if the database exists. If not, it creates it and executes the schema script.
+    
+    Args:
+        db_uri (str): The SQLAlchemy connection URI including the database name.
+        db_name (str): The name of the database to check or create.
+        create_sql_path (Path): The path to the SQL script file containing the schema definition.
+        
+    Returns:
+        None
     """
     # Create engine without connecting to a specific database first
     base_uri = db_uri.rsplit('/', 1)[0]
@@ -71,6 +85,18 @@ def load_dimension(df: pd.DataFrame, engine, table_name: str, natural_key: str, 
     """
     Loads unique records into a dimension table using an anti-join approach to avoid duplicates.
     Returns a dataframe with the mapping of the natural key to the newly generated surrogate key.
+    
+    Args:
+        df (pd.DataFrame): The transformed dataframe containing the dimension data.
+        engine (sqlalchemy.engine.Engine): The SQLAlchemy engine connected to the database.
+        table_name (str): The name of the dimension table in the database (e.g., 'dim_location').
+        natural_key (str): The column name in the dataframe that acts as the unique business key.
+        columns (list): A list of column names to extract from the dataframe for this dimension.
+        queries (dict): A dictionary containing the pre-loaded SQL query templates.
+        
+    Returns:
+        pd.DataFrame: A dataframe containing two columns: the generated surrogate key and the natural key,
+                      used for merging back into the fact table.
     """
     logging.info(f"Processing dimension: {table_name}")
     
@@ -109,6 +135,13 @@ def load_dimension(df: pd.DataFrame, engine, table_name: str, natural_key: str, 
 def load_data(df: pd.DataFrame, db_uri: str):
     """
     Orchestrates the loading of dimensions and the fact table into the Data Warehouse.
+    
+    Args:
+        df (pd.DataFrame): The fully transformed and cleaned dataframe.
+        db_uri (str): The SQLAlchemy connection URI including the target database name.
+        
+    Returns:
+        None
     """
     # Project paths
     current_dir = Path(__file__).resolve().parent

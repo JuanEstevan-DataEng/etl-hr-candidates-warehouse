@@ -9,6 +9,14 @@ def extract_data(file_name: str = 'candidates.csv') -> pd.DataFrame:
     """
     Reads the raw CSV file and returns a Pandas DataFrame.
     Ensures cross-platform reproducibility using pathlib.
+    
+    Args:
+        file_name (str, optional): The name of the CSV file to read from the data/raw/ directory. 
+                                   Defaults to 'candidates.csv'.
+        
+    Returns:
+        pd.DataFrame: A pandas DataFrame containing the raw data extracted from the CSV file.
+                      Raises a FileNotFoundError if the file does not exist.
     """
     try:
         # The absolute path of the script directory (src/) is obtained,

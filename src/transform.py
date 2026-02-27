@@ -10,6 +10,12 @@ def transform_data(df_raw: pd.DataFrame) -> pd.DataFrame:
     Main orchestration function for the transformation phase.
     Performs data cleaning, business rules application, and date dimension expansion
     in a single cohesive flow.
+    
+    Args:
+        df_raw (pd.DataFrame): The raw dataframe extracted from the source CSV.
+        
+    Returns:
+        pd.DataFrame: A cleaned and transformed dataframe ready to be loaded into the Data Warehouse.
     """
     try:
         df = df_raw.copy()
