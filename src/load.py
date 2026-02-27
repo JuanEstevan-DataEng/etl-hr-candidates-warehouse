@@ -72,18 +72,12 @@ def load_data(df: pd.DataFrame, db_uri: str):
         df = df.merge(cand_mapping, on='email', how='left')
         
         # Date (Special case because SK is derived, not auto-increment)
-        df['full_date'] = df['application date'].dt.date
+        df['full_date'] = df['application_date'].dt.date
         _ = load_dimension(df, engine, 'dim_date', 'date_sk', ['date_sk', 'full_date', 'year', 'month', 'day', 'quarter'])
         # No merge is needed for date_sk because it was already generated in the transform phase
         
         # --- 2. Fact Table is loaded ---
         logging.info("Preparing fact_application table.")
-        
-        # Columns with spaces are renamed to match the database schema
-        df = df.rename(columns={
-            'code challenge score': 'code_challenge_score',
-            'technical interview score': 'technical_interview_score'
-        })
         
         fact_columns = [
             'candidate_sk', 'seniority_sk', 'technology_sk', 'location_sk', 'date_sk',
