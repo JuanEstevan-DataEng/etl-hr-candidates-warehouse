@@ -43,6 +43,7 @@ The pipeline is entirely built in Python (Pandas + SQLAlchemy) and orchestrated 
 *   **Business Rule ("HIRED"):** Creates the `is_hired` boolean flag. A candidate gets a `1` if BOTH `code_challenge_score` and `technical_interview_score` are $\ge 7$.
 *   **Anomaly Correction:** Overwrites the original `seniority` column based on a predefined matrix comparing Years of Experience (`yoe`) and `technical_interview_score`.
 *   **Date Expansion:** Casts the string date into datetime objects and extracts atomic temporal features.
+*   **Extra (export csv cleaned):** Exports the cleaned csv to `data/processed/candidates_cleaned.csv`.
 
 ### 3. Load (`src/load.py`)
 *   **Dynamic Initialization:** Checks if the MySQL database exists; if not, it automatically runs the schema creation script (`sql/create_tables.sql`).

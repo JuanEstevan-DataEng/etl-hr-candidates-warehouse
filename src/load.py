@@ -96,7 +96,7 @@ def load_dimension(df: pd.DataFrame, engine, table_name: str, natural_key: str, 
         
     Returns:
         pd.DataFrame: A dataframe containing two columns: the generated surrogate key and the natural key,
-                      used for merging back into the fact table.
+        used for merging back into the fact table.
     """
     logging.info(f"Processing dimension: {table_name}")
     
@@ -168,12 +168,10 @@ def load_data(df: pd.DataFrame, db_uri: str):
         df = df.merge(loc_mapping, on='country', how='left')
         
         # Technology
-        df['technology_name'] = df['technology']
         tech_mapping = load_dimension(df, engine, 'dim_technology', 'technology_name', ['technology_name'], queries)
         df = df.merge(tech_mapping, on='technology_name', how='left')
         
         # Seniority
-        df['seniority_name'] = df['seniority']
         sen_mapping = load_dimension(df, engine, 'dim_seniority', 'seniority_name', ['seniority_name'], queries)
         df = df.merge(sen_mapping, on='seniority_name', how='left')
         
@@ -182,7 +180,6 @@ def load_data(df: pd.DataFrame, db_uri: str):
         df = df.merge(cand_mapping, on='email', how='left')
         
         # Date (Special case because SK is derived, not auto-increment)
-        df['full_date'] = df['application_date'].dt.date
         _ = load_dimension(df, engine, 'dim_date', 'date_sk', ['date_sk', 'full_date', 'year', 'month', 'day', 'quarter'], queries)
         
         # --- 2. Fact Table is loaded ---
