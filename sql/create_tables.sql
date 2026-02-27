@@ -53,7 +53,7 @@ ENGINE = InnoDB;
 -- Table `candidates_dw`.`dim_technology`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `candidates_dw`.`dim_technology` (
-  `technology_sk` INT NOT NULL,
+  `technology_sk` INT NOT NULL AUTO_INCREMENT,
   `technology_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`technology_sk`))
 ENGINE = InnoDB;
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `candidates_dw`.`fact_application` (
   `yoe` INT NOT NULL,
   `code_challenge_score` INT NOT NULL,
   `technical_interview_score` INT NOT NULL,
-  `dim_candidate_candidate_sk` VARCHAR(45) NOT NULL,
+  `is_hired` TINYINT(1) NOT NULL,
   PRIMARY KEY (`application_sk`),
   INDEX `fk_fact_application_dim_candidate_idx` (`candidate_sk` ASC) VISIBLE,
   INDEX `fk_fact_application_dim_seniority1_idx` (`seniority_sk` ASC) VISIBLE,
@@ -97,13 +97,16 @@ CREATE TABLE IF NOT EXISTS `candidates_dw`.`fact_application` (
     REFERENCES `candidates_dw`.`dim_seniority` (`seniority_sk`),
   CONSTRAINT `fk_fact_application_dim_technology1`
     FOREIGN KEY (`technology_sk`)
-    REFERENCES `candidates_dw`.`dim_technology` (`technology_sk`),
+    REFERENCES `candidates_dw`.`dim_technology` (`technology_sk`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_fact_application_dim_date1`
     FOREIGN KEY (`date_sk`)
     REFERENCES `candidates_dw`.`dim_date` (`date_sk`),
   CONSTRAINT `fk_fact_application_dim_location1`
     FOREIGN KEY (`location_sk`)
-    REFERENCES `candidates_dw`.`dim_location` (`location_sk`))
+    REFERENCES `candidates_dw`.`dim_location` (`location_sk`)
+    )
 ENGINE = InnoDB;
 
 
