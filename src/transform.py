@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import logging
+from pathlib import Path
 
 # Basic logging configuration for the pipeline
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -84,6 +85,20 @@ def transform_data(df_raw: pd.DataFrame) -> pd.DataFrame:
         logging.info("Expanded date components for dimension modeling.")
 
         logging.info("Transformation phase completed successfully.")
+        
+        logging.info("exporting transformed dataframe.")
+        
+        # Determine the absolute path dynamically based on the current file location
+        current_dir = Path(__file__).resolve().parent
+        export_path = current_dir.parent / 'data' / 'processed' / 'candidates.csv'
+        
+        # Ensure the output directory exists
+        export_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        df.to_csv(export_path, index=False)
+        
+        logging.info("exported transformed dataframe.")
+        
         return df
         
     except Exception as e:
