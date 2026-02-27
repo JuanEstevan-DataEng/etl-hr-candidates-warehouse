@@ -80,19 +80,3 @@ def transform_data(df_raw: pd.DataFrame) -> pd.DataFrame:
         logging.error(f"Error during the transformation phase: {e}")
         raise
 
-# Test block
-if __name__ == "__main__":
-    import sys
-    from pathlib import Path
-    
-    # A temporary path addition to import extract module for isolated testing
-    sys.path.append(str(Path(__file__).resolve().parent))
-    try:
-        from extract import extract_data
-        df_raw = extract_data()
-        df_clean = transform_data(df_raw)
-        
-        print("\nSample of transformed data:")
-        print(df_clean[['email', 'yoe', 'seniority', 'technical interview score', 'is_hired', 'date_sk']].head())
-    except ImportError:
-        logging.error("Could not import extract_data for testing. Ensure you are running from the project root.")

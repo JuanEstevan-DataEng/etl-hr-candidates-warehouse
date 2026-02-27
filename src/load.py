@@ -104,33 +104,3 @@ def load_data(df: pd.DataFrame, db_uri: str):
     finally:
         engine.dispose()
 
-# Test block
-if __name__ == "__main__":
-    import sys
-    from pathlib import Path
-    
-    # A temporary path addition to import previous modules for isolated testing
-    sys.path.append(str(Path(__file__).resolve().parent))
-    try:
-        from extract import extract_data
-        from transform import transform_data
-        
-        # Database connection URI. It defaults to localhost, but can be overridden by environment variables.
-        # Format: mysql+pymysql://user:password@host:port/database
-        DB_USER = os.getenv("DB_USER")
-        DB_PASSWORD = os.getenv("DB_PASSWORD")
-        DB_HOST = os.getenv("DB_HOST")
-        DB_PORT = os.getenv("DB_PORT")
-        DB_NAME = os.getenv("DB_NAME")
-        
-        CONNECTION_URI = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-        
-        logging.info("Running full pipeline test from load.py...")
-        df_raw = extract_data()
-        df_clean = transform_data(df_raw)
-        
-        # load_data(df_clean, CONNECTION_URI) # Uncomment to actually insert data during isolated test
-        logging.info("Pipeline logic is sound. Uncomment load_data() to execute insertion.")
-        
-    except ImportError:
-        logging.error("Could not import previous modules. Ensure you are running from the project root.")

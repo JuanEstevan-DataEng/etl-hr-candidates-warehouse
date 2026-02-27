@@ -37,7 +37,3 @@ def extract_data(file_name: str = 'candidates.csv') -> pd.DataFrame:
         logging.error(f"Error during the extraction phase: {e}")
         raise
 
-# Test block (only executed if this script is run directly)
-if __name__ == "__main__":
-    df_raw = extract_data()
-    print(df_raw.head())
