@@ -82,6 +82,15 @@ def transform_data(df_raw: pd.DataFrame) -> pd.DataFrame:
         # Replace spaces with underscores in all column names to match database schema
         df.columns = df.columns.str.replace(' ', '_')
         
+        # Rename specific columns to match the dimension names in the Data Warehouse
+        df = df.rename(columns={
+            'technology': 'technology_name',
+            'seniority': 'seniority_name'
+        })
+        
+        # Create full_date column for dim_date
+        df['full_date'] = df['application_date'].dt.date
+        
         logging.info("Expanded date components for dimension modeling.")
 
         logging.info("Transformation phase completed successfully.")
