@@ -22,9 +22,7 @@ data/processed/*
 *.log
 *.sql.gz
 
-# --- Images / diagrams
-*.png
-*.svg
+
 
 # --- SO (Linux/Mac/Windows) ---
 .DS_Store
