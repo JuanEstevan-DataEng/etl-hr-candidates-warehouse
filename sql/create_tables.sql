@@ -44,7 +44,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `candidates_dw`.`dim_location` (
   `location_sk` INT NOT NULL AUTO_INCREMENT,
-  `country` VARCHAR(50) NOT NULL,
+  `country` VARCHAR(250) NOT NULL,
   PRIMARY KEY (`location_sk`))
 ENGINE = InnoDB;
 

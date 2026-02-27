@@ -27,5 +27,3 @@ data/processed/*
 # --- SO (Linux/Mac/Windows) ---
 .DS_Store
 Thumbs.db
-
-GEMINI.md
