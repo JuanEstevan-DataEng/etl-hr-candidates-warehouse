@@ -54,7 +54,7 @@ FROM fact_application f
 JOIN dim_location l ON f.location_sk = l.location_sk
 JOIN dim_date d ON f.date_sk = d.date_sk
 WHERE f.is_hired = 1 
-  AND l.country IN ('united states', 'united states of america', 'usa', 'brazil', 'colombia', 'ecuador')
+AND l.country IN ('united states', 'united states of america', 'usa', 'brazil', 'colombia', 'ecuador')
 GROUP BY l.country, d.year
 ORDER BY l.country, d.year;
 
