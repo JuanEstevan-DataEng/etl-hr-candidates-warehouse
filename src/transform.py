@@ -71,6 +71,10 @@ def transform_data(df_raw: pd.DataFrame) -> pd.DataFrame:
         
         # Creating date_sk as an integer (e.g., 20210226)
         df['date_sk'] = df['application date'].dt.strftime('%Y%m%d').astype(int)
+        
+        # Replace spaces with underscores in all column names to match database schema
+        df.columns = df.columns.str.replace(' ', '_')
+        
         logging.info("Expanded date components for dimension modeling.")
 
         logging.info("Transformation phase completed successfully.")
