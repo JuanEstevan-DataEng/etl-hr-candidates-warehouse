@@ -23,7 +23,7 @@ The atomic level of the fact table represents a single moment in time when a can
     *   `dim_date`: Extracted from the application date, split into `year`, `month`, `day`, and `quarter` to avoid complex temporal SQL functions during BI reporting.
 *   **Surrogate Keys (SKs):** Every dimension utilizes an auto-incremental integer as its Primary Key (e.g., `candidate_sk`, `technology_sk`). Natural keys from the CSV were strictly avoided as PKs following Data Warehousing best practices.
 
-![Star Schema Diagram](diagrams/star_schema.png)
+![Star Schema Diagram](diagrams/star_schema-candidates_dw.png)
 
 ---
 
